@@ -1,16 +1,31 @@
 <script setup>
-let names = [ 'Peserta 1', 'Peserta 2' ]
+const board_name = ref('Simple Scoreboard')
+const participants = ref([
+  { id: 0, name: 'Peserta 1', counter: 0 },
+  { id: 1, name: 'Peserta 2', counter: 0 },
+])
+
+const counter_add = (idx) => participants.value[idx].counter++;
+const counter_reduce = (idx) => {
+  if (participants.value[idx].counter > 0) participants.value[idx].counter--;
+}
 </script>
 
 <template>
   <main class="grid items-center justify-center min-h-screen w-screen">
 
     <section class="text-center h-4/5 min-w-[800px]">
-      <h1 class="font-bold text-3xl">Simple Scoreboard</h1>
+      <h1 class="font-bold text-3xl">{{ board_name }}</h1>
       
       <article class="flex gap-4 mt-4 h-2/3">
-        <ScorePanel :participant_name="names[0]"/>
-        <ScorePanel :participant_name="names[1]"/>
+        <ScorePanel
+          v-for="participant in participants"
+          :key="participant.id"
+          :label="participant.name"
+          :counter="participant.counter"
+          @counter_add="() => counter_add(participant.id)"
+          @counter_reduce="() => counter_reduce(participant.id)"
+        />
       </article>
     </section>
 
