@@ -1,23 +1,6 @@
 version: "3"
 
 services:
-
-  web:
-    #build: 
-      #context: .
-      #dockerfile: docker/Dockerfile
-    image: node:alpine
-    ports:
-      - "${APP_PORT}:${APP_PORT}"
-    depends_on:
-      - postgres
-    # belows settings overwrite default Dockerfile settings for local development. remove for actual deployment
-    volumes:
-      - .:/app
-    working_dir: /app
-    #command: 'npm run dev'
-    command: 'tail -f /dev/null'
-
   postgres:
     image: postgres:alpine
     # restart: always

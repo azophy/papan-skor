@@ -43,7 +43,13 @@
         </button>
       </article>
       new_title: {{ new_title }}
-      {{ submitResult }}
+      <div v-if="status">{{ status }}
+      </div>
+      <NuxtLink
+        v-if="(status == 'done')"
+        :to="`/boards/${submitResult.id}`"
+        class="cursor-pointer underline hover:no-underline"  
+      >Result board</NuxtLink>
 
       
     </section>
@@ -52,15 +58,18 @@
 </template>
 
 <script setup lang="ts">
+  const status = ref('')
   const new_title = ref('new board')
   const new_participants = ref(['', ''])
 
   const submitResult = ref('')
   async function submitClick() {
+    status.value = 'loading'
     const { data } = await useFetch('/api/boards', {
         method: 'post',
         body: { new_title, new_participants },
     })
     submitResult.value = data
+    status.value = 'done'
   }
 </script>

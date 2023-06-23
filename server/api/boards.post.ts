@@ -1,4 +1,4 @@
-import { prisma } from '../../index'
+import { prisma } from '../index'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
         //updatedAt: now
       }
       const result = await prisma.board.create({ data })
-      return { body }
+      return { result }
     } catch (err: Error) {
       return { succes: false, msg: err.message }
     }
