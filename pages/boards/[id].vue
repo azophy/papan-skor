@@ -12,11 +12,18 @@ const counter_reduce = (idx) => {
 }
 
 // When accessing /posts/1, route.params.id will be 1
-board_name.value = route.params.id;
+const { data: response } = await useFetch('/api/boards/'+route.params.id, {
+    /*method: 'post',*/
+    /*body: { new_title, new_participants },*/
+})
+
+board_name.value = response.data.title;
+/*participants.value = data.data.participants;*/
 
 </script>
 
 <template>
+title: {{ response.data.title }}
   <main class="grid items-center justify-center min-h-screen w-screen">
 
     <section class="text-center h-4/5 min-w-[800px]">
