@@ -25,7 +25,7 @@
         type="button"
         class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
         @click="new_participants.push('')"
-      >add participant</button>
+      >add more participant</button>
 
       <button
         type="button"

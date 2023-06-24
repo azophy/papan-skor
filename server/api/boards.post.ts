@@ -6,8 +6,9 @@ export default defineEventHandler(async (event) => {
     try {
       const data = {
         title: body.new_title,
-        data: body.new_participants.map((title) => ({
-          title,
+        data: body.new_participants.map((label, idx) => ({
+          idx,
+          label,
           count: 0,
         })),
         //updatedAt: now
