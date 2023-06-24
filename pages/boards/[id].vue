@@ -11,19 +11,19 @@ const counter_reduce = (idx) => {
   if (participants.value[idx].counter > 0) participants.value[idx].counter--;
 }
 
-// When accessing /posts/1, route.params.id will be 1
-const { data: response } = await useFetch('/api/boards/'+route.params.id, {
-    /*method: 'post',*/
-    /*body: { new_title, new_participants },*/
-})
+const { data } = await $fetch('/api/boards/'+route.params.id)
 
-board_name.value = response.data.title;
-/*participants.value = data.data.participants;*/
+board_name.value = data.title;
+participants.value = data.data.map((item,idx) => ({
+  id: idx,
+  name: item.title,
+  counter: item.count,
+  item,
+}))
 
 </script>
 
 <template>
-title: {{ response.data.title }}
   <main class="grid items-center justify-center min-h-screen w-screen">
 
     <section class="text-center h-4/5 min-w-[800px]">

@@ -1,4 +1,7 @@
 <template>
+  <Head>
+    <Title>PapanSkor - Simple Online Scoreboard</Title>
+  </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
     <h1 class="font-bold text-[5em]">Simple Online Digital Scoreboard</h1>
     <section class="text-center h-4/5 min-w-[800px] flex flex-col items-center">
@@ -42,11 +45,12 @@
           submit
         </button>
       </article>
-      new_title: {{ new_title }}
       <div v-if="status">{{ status }}
       </div>
+      result: {{ submitResult }}
+      result id: {{ submitResult.id }}
       <NuxtLink
-        v-if="(status == 'done')"
+        v-if="status == 'done'"
         :to="`/boards/${submitResult.id}`"
         class="cursor-pointer underline hover:no-underline"  
       >Result board</NuxtLink>
@@ -65,7 +69,7 @@
   const submitResult = ref('')
   async function submitClick() {
     status.value = 'loading'
-    const { data } = await useFetch('/api/boards', {
+    const { data } = await $fetch('/api/boards', {
         method: 'post',
         body: { new_title, new_participants },
     })

@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
         //updatedAt: now
       }
       const result = await prisma.board.create({ data })
-      return { result }
+      return result
     } catch (err: Error) {
       return { succes: false, msg: err.message }
     }
