@@ -8,22 +8,21 @@ const participants = ref([
 ])
 
 const counter_add = (idx) => {
-  let new_data = {
+  const new_data = {
     title: board_title.value,
-    /*data: participants.value.map(i => Object.assign({}, i)),*/
     data: participants.value,
   }
-  participants.value[idx].count++;
-  /*updateBoard(new_data)*/
+  new_data.data[idx].count++
+  updateBoard(new_data)
 }
 const counter_reduce = (idx) => {
   if (participants.value[idx].count > 0) {
-    let new_data = {
+    const new_data = {
       title: board_title.value,
-      data: participants.value.slice(),
+      data: participants.value,
     }
-    new_data.data[idx].count--;
-    /*updateBoard(new_data)*/
+    new_data.data[idx].count--
+    updateBoard(new_data)
   }
 }
 
@@ -61,7 +60,7 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-
+    participants: {{ participants }}
     <section class="text-center h-4/5 min-w-[800px]">
       <span class="flex justify-between">
         <h1 class="font-bold text-3xl">{{ board_title }}</h1>
