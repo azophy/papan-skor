@@ -60,7 +60,6 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-    participants: {{ participants }}
     <section class="text-center h-4/5 min-w-[800px]">
       <span class="flex justify-between">
         <h1 class="font-bold text-3xl">{{ board_title }}</h1>
