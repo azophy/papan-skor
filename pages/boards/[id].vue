@@ -11,16 +11,23 @@ const counter_reduce = (idx) => {
   if (participants.value[idx].counter > 0) participants.value[idx].counter--;
 }
 
-const { data } = await $fetch('/api/boards/'+route.params.id)
+const updateInterval = 1000 // milliseconds
 
-board_name.value = data.title;
-participants.value = data.data.map((item,idx) => ({
-  id: idx,
-  name: item.title,
-  counter: item.count,
-  item,
-}))
+const updateBoard = async () => {
+  const { data } = await $fetch('/api/boards/'+route.params.id)
 
+  board_name.value = data.title;
+  participants.value = data.data.map((item,idx) => ({
+    id: idx,
+    name: item.title,
+    counter: item.count,
+    item,
+  }))
+
+  setTimeout(updateBoard, updateInterval);
+}
+
+updateBoard();
 </script>
 
 <template>
