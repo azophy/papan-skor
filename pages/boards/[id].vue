@@ -1,4 +1,6 @@
 <script setup>
+const updateInterval = 1000 // milliseconds
+
 const enableAutosync = ref(true)
 const route = useRoute()
 const board_title = ref('Simple Scoreboard')
@@ -25,8 +27,6 @@ const counter_reduce = (idx) => {
     updateBoard(new_data)
   }
 }
-
-const updateInterval = 3000 // milliseconds
 
 const getBoard = async () => {
   const { data } = await $fetch('/api/boards/'+route.params.id, {
@@ -79,7 +79,7 @@ getBoard();
           @counter_reduce="() => counter_reduce(participant.id)"
         />
       </article>
-      <span>
+      <span class="hidden">
         <input type="checkbox" v-model="enableAutosync" />
         <label for="">Enable Autosync</label>
       </span>

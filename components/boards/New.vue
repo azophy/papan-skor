@@ -40,7 +40,7 @@
       v-if="status == 'done'"
       :to="`/boards/${new_id}`"
       class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
-    >New board link: {{ `/boards/${new_id}`}}</NuxtLink>
+    >New board link: {{ `${origin}/boards/${new_id}`}}</NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -48,18 +48,23 @@
   const new_id = ref('')
   const new_title = ref('new board')
   const new_participants = ref(['', ''])
-
-  const submitResult = ref('')
+  const origin = window.origin
 
   async function submitClick() {
     status.value = 'loading'
-    const { data } = await useFetch('/api/boards', {
+    const result = await $fetch('/api/boards', {
         method: 'post',
         server: false,
-        body: { new_title, new_participants },
+        body: {
+          new_title: new_title.value,
+          new_participants: new_participants.value,
+        },
     })
-    submitResult.value = data
-    new_id.value = data.value.id
-    status.value = 'done'
+    if (result.success) {
+      new_id.value = result.id
+      status.value = 'done'
+    } else {
+      status.value = 'error: ' + result.msg
+    }
   }
 </script>

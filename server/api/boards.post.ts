@@ -2,6 +2,7 @@ import { prisma } from '../index'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
+    // return body.new_participants
 
     try {
       const data = {
@@ -14,7 +15,7 @@ export default defineEventHandler(async (event) => {
         //updatedAt: now
       }
       const result = await prisma.board.create({ data })
-      return result
+      return { success: true, ...result }
     } catch (err: Error) {
       return { succes: false, msg: err.message }
     }
