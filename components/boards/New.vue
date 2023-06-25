@@ -40,7 +40,7 @@
       v-if="status == 'done'"
       :to="`/boards/${new_id}`"
       class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
-    >New board link: {{ `${origin}/boards/${new_id}`}}</NuxtLink>
+    >New board link: {{ `${url.origin}/boards/${new_id}`}}</NuxtLink>
 </template>
 
 <script setup lang="ts">
@@ -48,7 +48,7 @@
   const new_id = ref('')
   const new_title = ref('new board')
   const new_participants = ref(['', ''])
-  const origin = window.origin
+  const url = useRequestUrl()
 
   async function submitClick() {
     status.value = 'loading'
