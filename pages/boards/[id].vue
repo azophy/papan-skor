@@ -60,7 +60,7 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-    <section class="text-center h-4/5 min-w-[800px]">
+    <section class="text-center h-4/5 w-full lg:min-w-[800px]">
       <span class="flex justify-between">
         <h1 class="font-bold text-3xl">{{ board_title }}</h1>
         <NuxtLink
@@ -69,7 +69,7 @@ getBoard();
         >Home</NuxtLink>
       </span>
       
-      <article class="flex gap-4 mt-4 h-2/3">
+      <article class="w-full grid gap-4 mt-4 min-h-2/3 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
         <ScorePanel
           v-for="participant in participants"
           :key="participant.id"
