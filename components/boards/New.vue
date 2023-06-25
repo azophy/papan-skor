@@ -48,7 +48,7 @@
   const new_id = ref('')
   const new_title = ref('new board')
   const new_participants = ref(['', ''])
-  const url = useRequestUrl()
+  const url = useRequestURL()
 
   async function submitClick() {
     status.value = 'loading'
