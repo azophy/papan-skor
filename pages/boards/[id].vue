@@ -1,8 +1,9 @@
 <script setup>
-const updateInterval = 1000 // milliseconds
-
-const enableAutosync = ref(true)
 const route = useRoute()
+const updateInterval = 1000 // milliseconds
+const enableAutosync = ref(true)
+
+const board_id = route.params.id
 const board_title = ref('Simple Scoreboard')
 const participants = ref([
   { id: 0, label: 'Peserta 1', count: 0 },
@@ -45,7 +46,7 @@ const getBoard = async () => {
 }
 
 const updateBoard = async (new_data) => {
-  const { data } = await $fetch('/api/boards/'+route.params.id, {
+  const { data } = await $fetch('/api/boards/'+board_id, {
     method: 'PUT',
     server: false,
     body: new_data,
@@ -60,16 +61,17 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-    <section class="text-center h-4/5 w-full lg:min-w-[800px]">
-      <span class="flex justify-between">
-        <h1 class="font-bold text-3xl">{{ board_title }}</h1>
+    <section class="text-center h-4/5 w-full lg:min-w-[1000px] xl: min-w-[1230px]">
+      <span class="text-left">
         <NuxtLink
-          to="/"
+          :to="`/boards/${board_id}`"
           class="cursor-pointer underline hover:no-underline"  
-        >Home</NuxtLink>
+        >
+          <h1 class="font-bold text-3xl">{{ board_title }}</h1>
+        </NuxtLink>
       </span>
       
-      <article class="w-full grid gap-4 mt-4 min-h-2/3 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
+      <article class="w-full min-h-2/3 grid gap-4 mt-4 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
         <ScorePanel
           v-for="participant in participants"
           :key="participant.id"

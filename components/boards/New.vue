@@ -39,7 +39,7 @@
     <NuxtLink
       v-if="status == 'done'"
       :to="`/boards/${new_id}`"
-      class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
+      class="w-[300px] p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
     >New board link: {{ `${url.origin}/boards/${new_id}`}}</NuxtLink>
 </template>
 
