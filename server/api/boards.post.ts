@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
         //updatedAt: now
       }
       await storage.setItem(`board/${new_id}`, JSON.stringify(data) )
-      return { success: true, ...result }
+      return { success: true, ...data }
     } catch (err: Error) {
       return { succes: false, msg: err.message }
     }

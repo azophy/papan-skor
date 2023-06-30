@@ -9,17 +9,13 @@ export default defineNuxtConfig({
     //plugins: ["~/server/index.ts"],
     // Production
     storage: {
-      data: {
-        driver: 'redis',
-        /* redis connector options */
-      }
+      data: { driver: 'vercelKV' }
     },
     // Development
     devStorage: {
       data: {
         driver: 'fs',
-        base: './data/db'
-        //base: './.nuxt/db'
+        base: './.nuxt/db'
       }
     }
   },
