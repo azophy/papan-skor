@@ -2,6 +2,8 @@
 const route = useRoute()
 const updateInterval = 1000 // milliseconds
 const enableAutosync = ref(true)
+const isBlinking = ref(false)
+let lastUpdatedAt = 0
 
 const board_id = route.params.id
 const board_title = ref('Simple Scoreboard')
@@ -34,12 +36,20 @@ const getBoard = async () => {
     server: false,
   })
 
-  board_title.value = data.title;
-  participants.value = data.data.map((item,idx) => ({
-    id: item.id,
-    label: item.label,
-    count: item.count,
-  }))
+  if (lastUpdatedAt != data.updated_at){
+    lastUpdatedAt = data.updated_at
+    board_title.value = data.title;
+    participants.value = data.data.map((item,idx) => ({
+      id: item.id,
+      label: item.label,
+      count: item.count,
+    }))
+
+    isBlinking.value = true
+    setTimeout(() => {
+     isBlinking.value = false
+    }, 2000)
+  }
 
   if (enableAutosync.value)
     setTimeout(getBoard, updateInterval);
@@ -77,6 +87,7 @@ getBoard();
           :key="participant.id"
           :label="participant.label"
           :count="participant.count"
+          :class="{ blink: isBlinking }"
           @counter_add="() => counter_add(participant.id)"
           @counter_reduce="() => counter_reduce(participant.id)"
         />
@@ -90,3 +101,12 @@ getBoard();
   </main>
 </template>
 
+<style>
+.blink {
+  animation: blink 1s 2 alternate;
+}
+
+@keyframes blink {
+      to { background-color: rgb(96, 165, 250); }
+}
+</style>

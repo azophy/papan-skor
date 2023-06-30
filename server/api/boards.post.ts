@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
           label,
           count: 0,
         })),
-        //updatedAt: now
+        updated_at: Date.now(),
       }
       await storage.setItem(`board/${new_id}`, JSON.stringify(data) )
       return { success: true, ...data }
