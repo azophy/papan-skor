@@ -1,10 +1,21 @@
 # Simple Scoreboard with Nuxt
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Simple sharable online scoreboard with multi device synchronization.
 
 ## Tech stack
-- Nuxt 3
-- Nitros Storage (using FS for local development, and Vercel's KV in production)
+- [Nuxt 3](https://nuxt.com/docs/getting-started/introduction)
+- [Nitros Storage](https://nitro.unjs.io/guide/storage#development-storage) (using FS for local development, and [Vercel's KV](https://unstorage.unjs.io/drivers/vercel-kv) in production)
+
+## Architecture
+- sync using simple pooling
+
+## Future Improvements
+- store redis key with expiry limit to avoid full storage
+- improve pooling efficiency by only sending changed data
+- more efficient sync mechanism, either using websocket or peer-to-peer webrtc
+- conflict prevention using locking mechanism
+- animation on changing score
+- use event pooling to reduce jitter and network request
 
 ## Setup
 
