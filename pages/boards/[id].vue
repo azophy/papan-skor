@@ -1,4 +1,5 @@
 <script setup>
+const EVENT_POOLING_INTERVAL = 500 // milliseconds
 const route = useRoute()
 const updateInterval = 1000 // milliseconds
 const enableAutosync = ref(true)
@@ -6,10 +7,9 @@ const isBlinking = ref(false)
 let lastUpdatedAt = 0
 
 const board_id = route.params.id
-const board_title = ref('Simple Scoreboard')
+const board_title = ref('loading...')
 const participants = ref([
-  { id: 0, label: 'Peserta 1', count: 0 },
-  { id: 1, label: 'Peserta 2', count: 0 },
+  { id: 0, label: 'loading...', count: 0 },
 ])
 
 const counter_add = (idx) => {
@@ -70,7 +70,7 @@ const updateBoard = async (new_data) => {
       body: new_data,
     })
     updateTimout = null
-  }, 1000)
+  }, EVENT_POOLING_INTERVAL)
 }
 
 getBoard();
