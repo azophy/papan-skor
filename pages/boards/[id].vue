@@ -1,7 +1,6 @@
 <script setup>
-const EVENT_POOLING_INTERVAL = 500 // milliseconds
+const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
-const updateInterval = 1000 // milliseconds
 const enableAutosync = ref(true)
 const isBlinking = ref(false)
 let lastUpdatedAt = 0
@@ -52,7 +51,7 @@ const getBoard = async () => {
   }
 
   if (enableAutosync.value)
-    setTimeout(getBoard, updateInterval);
+    setTimeout(getBoard, runtimeConfig.public.boardUpdateInterval);
 }
 
 let updateTimout = null
@@ -70,7 +69,7 @@ const updateBoard = async (new_data) => {
       body: new_data,
     })
     updateTimout = null
-  }, EVENT_POOLING_INTERVAL)
+  }, runtimeConfig.public.boardEventPoolingInterval)
 }
 
 getBoard();

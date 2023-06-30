@@ -4,6 +4,12 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
   ],
+  runtimeConfig: {
+    public: {
+      boardUpdateInterval: 1000, // in milloseconds
+      boardEventPoolingInterval: 500, // in milliseconds
+    },
+  },
   // based on https://medium.com/@flanker72/nuxt3-complex-solutions-database-integration-8df941f0fb82
   nitro: {
     // Production
