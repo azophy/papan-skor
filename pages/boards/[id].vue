@@ -55,12 +55,22 @@ const getBoard = async () => {
     setTimeout(getBoard, updateInterval);
 }
 
+let updateTimout = null
+/* update board value by using timeout to pool close events */
 const updateBoard = async (new_data) => {
-  const { data } = await $fetch('/api/boards/'+board_id, {
-    method: 'PUT',
-    server: false,
-    body: new_data,
-  })
+  if (updateBoard) {
+    clearTimeout(updateTimout)
+    updateTimout = null
+  }
+
+  updateTimout = setTimeout( async () => {
+    const { data } = await $fetch('/api/boards/'+board_id, {
+      method: 'PUT',
+      server: false,
+      body: new_data,
+    })
+    updateTimout = null
+  }, 1000)
 }
 
 getBoard();

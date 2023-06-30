@@ -10,12 +10,12 @@ Simple sharable online scoreboard with multi device synchronization.
 - sync using simple pooling
 
 ## Future Improvements
-- store redis key with expiry limit to avoid full storage
-- improve pooling efficiency by only sending changed data
-- more efficient sync mechanism, either using websocket or peer-to-peer webrtc
-- conflict prevention using locking mechanism
-- animation on changing score
-- use event pooling to reduce jitter and network request
+- [x] animation on changing score
+- [x] use event pooling to reduce jitter and network request
+- [ ] store redis key with expiry limit to avoid full storage
+- [ ] improve pooling efficiency by only sending changed data
+- [ ] more efficient sync mechanism, either using websocket or peer-to-peer webrtc
+- [ ] conflict prevention using locking mechanism
 
 ## Setup
 
