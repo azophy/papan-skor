@@ -4,8 +4,10 @@ export default defineEventHandler(async (event) => {
     try {
       const id = event.context.params.id
       const board = await storage.getItem(`board/${id}`)
-      return { succes: true, data: board }
+      if (!board) throw new Error('board not found or expired');
+      
+      return { success: true, data: board }
     } catch (err: Error) {
-      return { succes: false, msg: err.message }
+      return { success: false, msg: err.message }
     }
 })

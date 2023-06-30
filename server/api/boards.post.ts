@@ -1,5 +1,7 @@
 import { createId } from '@paralleldrive/cuid2'
 
+const runtimeConfig = useRuntimeConfig()
+
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
     const storage = useStorage('data')
@@ -16,7 +18,11 @@ export default defineEventHandler(async (event) => {
         })),
         updated_at: Date.now(),
       }
-      await storage.setItem(`board/${new_id}`, JSON.stringify(data) )
+      await storage.setItem(
+        `board/${new_id}`,
+        JSON.stringify(data),
+        { ttl: runtimeConfig.boardExpiryLimit }
+      )
       return { success: true, ...data }
     } catch (err: Error) {
       return { succes: false, msg: err.message }

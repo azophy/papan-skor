@@ -3,6 +3,7 @@ const runtimeConfig = useRuntimeConfig()
 const route = useRoute()
 const enableAutosync = ref(true)
 const isBlinking = ref(false)
+const error_message = ref('')
 let lastUpdatedAt = 0
 
 const board_id = route.params.id
@@ -31,10 +32,15 @@ const counter_reduce = (idx) => {
 }
 
 const getBoard = async () => {
-  const { data } = await $fetch('/api/boards/'+route.params.id, {
+  const { success, data, msg} = await $fetch('/api/boards/'+route.params.id, {
     server: false,
   })
 
+  if (!success) {
+    error_message.value = `error: ${msg}`;
+    return;
+  }
+  
   if (lastUpdatedAt != data.updated_at){
     lastUpdatedAt = data.updated_at
     board_title.value = data.title;
@@ -80,7 +86,14 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-    <section class="text-center min-h-4/5 w-full lg:min-w-[1000px] xl:min-w-[1230px]">
+    <div
+      v-show="error_message"
+      class="p-4 bg-red-300 border border-red-700 border-dashed"
+    >{{ error_message }}</div>
+    <section
+      v-show="!error_message"
+      class="text-center min-h-4/5 w-full lg:min-w-[1000px] xl:min-w-[1230px]"
+    >
       <span class="text-left">
         <NuxtLink
           :to="`/boards/${board_id}`"

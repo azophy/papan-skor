@@ -1,3 +1,5 @@
+const runtimeConfig = useRuntimeConfig()
+
 export default defineEventHandler(async (event) => {
     const storage = useStorage('data')
 
@@ -5,7 +7,11 @@ export default defineEventHandler(async (event) => {
       const id = event.context.params.id
       let body = await readBody(event)
       body.updated_at = Date.now()
-      await storage.setItem(`board/${id}`, JSON.stringify(body) )
+      await storage.setItem(
+        `board/${id}`,
+        JSON.stringify(body),
+        { ttl: runtimeConfig.boardExpiryLimit }
+      )
       return { succes: true, data: body }
     } catch (err: Error) {
       return { succes: false, msg: err.message }

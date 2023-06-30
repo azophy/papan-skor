@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
   runtimeConfig: {
+    boardExpiryLimit: 6 * 60 * 60, // in seconds
     public: {
       boardUpdateInterval: 1000, // in milloseconds
       boardEventPoolingInterval: 500, // in milliseconds
