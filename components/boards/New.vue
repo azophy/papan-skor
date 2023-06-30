@@ -1,43 +1,18 @@
 <template>
-    <article
-      class="border flex flex-col gap-2 p-4 w-full lg:w-[400px]"
-      v-show="!status"
-    >
-      <h1 class="text-lg font-bold">Create new board</h1>
-
-      <label for="">Board Title</label>
-      <input
-        v-model="new_title"
-        placeholder="insert new title"
-        class="border border-gray-300 p-2"
-      />
-
-      <label for="">Participants</label>
-      <input
-        v-for="(participant, index) in new_participants"
-        type="text"
-        :key="index"
-        v-model="new_participants[index]"
-        class="border border-gray-300 p-2"
-        :placeholder="`participant #${index+1}`"
-      />
-      <button
-        type="button"
-        class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
-        @click="new_participants.push('')"
-      >add more participant</button>
-
-      <button
-        type="button"
-        class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
-        @click="submitClick"
-      >
-        submit
-      </button>
-    </article>
     <div v-show="status">{{ status }}</div>
+    <h1 class="text-lg font-bold">Create new board</h1>
+
+    <BoardsForm
+      v-show="status != 'done'"
+      :title="new_title"
+      @title_input="(v) => new_title = v"
+      :participants="new_participants"
+      @participant_input="(i,v) => new_participants[i] = v"
+      @form_click="() => submitClick()"
+      @add_participants="new_participants.push('')"
+    />
     <NuxtLink
-      v-if="status == 'done'"
+      v-show="status == 'done'"
       :to="`/boards/${new_id}`"
       class="w-[300px] p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
     >New board link: {{ `${url.origin}/boards/${new_id}`}}</NuxtLink>
