@@ -61,7 +61,7 @@ getBoard();
     <Title>{{ board_title }} - PapanSkor</Title>
   </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
-    <section class="text-center h-4/5 w-full lg:min-w-[1000px] xl: min-w-[1230px]">
+    <section class="text-center min-h-4/5 w-full lg:min-w-[1000px] xl:min-w-[1230px]">
       <span class="text-left">
         <NuxtLink
           :to="`/boards/${board_id}`"
