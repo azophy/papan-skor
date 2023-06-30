@@ -2,6 +2,10 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Tech stack
+- Nuxt 3
+- Nitros Storage (using FS for local development, and Vercel's KV in production)
+
 ## Setup
 
 Make sure to install the dependencies:
@@ -60,4 +64,3 @@ pnpm run preview
 yarn preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

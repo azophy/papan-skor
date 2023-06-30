@@ -1,11 +1,13 @@
-import { prisma } from '../index'
+import { createId } from '@paralleldrive/cuid2'
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
-    // return body.new_participants
+    const storage = useStorage('data')
 
     try {
+      const new_id = createId()
       const data = {
+        id: new_id,
         title: body.new_title,
         data: body.new_participants.map((label, id) => ({
           id,
@@ -14,7 +16,7 @@ export default defineEventHandler(async (event) => {
         })),
         //updatedAt: now
       }
-      const result = await prisma.board.create({ data })
+      await storage.setItem(`board/${new_id}`, JSON.stringify(data) )
       return { success: true, ...result }
     } catch (err: Error) {
       return { succes: false, msg: err.message }

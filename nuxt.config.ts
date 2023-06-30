@@ -5,7 +5,22 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
   ],
   // based on https://medium.com/@flanker72/nuxt3-complex-solutions-database-integration-8df941f0fb82
-  //nitro: {
+  nitro: {
     //plugins: ["~/server/index.ts"],
-  //},
+    // Production
+    storage: {
+      data: {
+        driver: 'redis',
+        /* redis connector options */
+      }
+    },
+    // Development
+    devStorage: {
+      data: {
+        driver: 'fs',
+        base: './data/db'
+        //base: './.nuxt/db'
+      }
+    }
+  },
 })
