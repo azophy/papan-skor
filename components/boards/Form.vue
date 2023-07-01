@@ -33,6 +33,8 @@ defineProps([
         @click="$emit('add_participants')"
       >add more participant</button>
 
+      <slot />
+
       <button
         type="button"
         class="p-2 cursor-pointer bg-blue-200 hover:bg-blue-400 hover:underline"
