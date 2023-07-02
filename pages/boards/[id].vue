@@ -4,6 +4,7 @@ const route = useRoute()
 const enableAutosync = ref(true)
 const isBlinking = ref(false)
 const error_message = ref('')
+const show_modal = ref(false)
 let lastUpdatedAt = 0
 
 const board_id = route.params.id
@@ -11,6 +12,29 @@ const board_title = ref('loading...')
 const participants = ref([
   { id: 0, label: 'loading...', count: 0 },
 ])
+
+const new_board_title = ref('')
+const new_participants = ref([])
+
+const showSettingModal = () => {
+  new_board_title.value = board_title.value
+  new_participants.value = participants.value.map(i => i.label)
+  show_modal.value = true
+}
+
+const saveSettingModal = () => {
+  const new_data = {
+    title: new_board_title.value,
+    data: new_participants.value.map((label, id) => ({
+      id,
+      label,
+      count: 0,
+    })),
+  }
+  updateBoard(new_data)
+
+  show_modal.value = false
+}
 
 const counter_add = (idx) => {
   const new_data = {
@@ -94,13 +118,17 @@ getBoard();
       v-show="!error_message"
       class="text-center min-h-4/5 w-full lg:min-w-[1000px] xl:min-w-[1230px]"
     >
-      <span class="text-left">
+      <span class="flex justify-between">
         <NuxtLink
           :to="`/boards/${board_id}`"
           class="cursor-pointer underline hover:no-underline"  
         >
           <h1 class="font-bold text-3xl">{{ board_title }}</h1>
         </NuxtLink>
+        <button
+          class="font-bold cursor-pointer p-2 rounded rounded-lg bg-neutral-200 hover:bg-neutral-100"
+          @click="showSettingModal"
+        >Settings</button>
       </span>
       
       <article class="w-full min-h-2/3 grid gap-4 mt-4 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
@@ -121,6 +149,25 @@ getBoard();
     </section>
 
   </main>
+
+  <Modal
+    title="Edit board detail"
+    class="flex flex-col items-center"
+    :show_modal="show_modal"
+    @close_modal="show_modal = false"
+    >
+    <div class="font-italic p-4 bg-neutral-100">
+    Warning: changing this values would reset all your scores to zero
+    </div>
+    <BoardsForm
+      :title="new_board_title"
+      @title_input="(v) => new_board_title = v"
+      :participants="new_participants"
+      @participant_input="(i,v) => new_participants[i] = v"
+      @add_participants="new_participants.push('')"
+      @form_click="saveSettingModal"
+    />
+  </Modal>
 </template>
 
 <style>
