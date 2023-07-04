@@ -116,7 +116,7 @@ getBoard();
     >{{ error_message }}</div>
     <section
       v-show="!error_message"
-      class="text-center min-h-4/5 w-full lg:min-w-[1000px] xl:min-w-[1230px]"
+      class="text-center min-h-4/5 w-[90vw]"
     >
       <span class="flex justify-between">
         <NuxtLink
@@ -131,7 +131,7 @@ getBoard();
         >Settings</button>
       </span>
       
-      <article class="w-full min-h-2/3 grid gap-4 mt-4 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
+      <article class="w-full min-h-2/3 grid gap-4 mt-4 grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
         <ScorePanel
           v-for="participant in participants"
           :key="participant.id"

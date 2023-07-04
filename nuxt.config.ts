@@ -4,6 +4,13 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
   ],
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/icon.png' }
+      ]
+    }
+  },
   runtimeConfig: {
     boardExpiryLimit: 6 * 60 * 60, // in seconds
     public: {

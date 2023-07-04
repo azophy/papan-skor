@@ -1,7 +1,4 @@
 <template>
-  <Head>
-    <Title>PapanSkor - Simple Online Scoreboard</Title>
-  </Head>
   <main class="grid items-center justify-center min-h-screen w-screen">
     <section class="text-center h-4/5 w-full lg:min-w-[800px] flex flex-col lg:flex-row items-center gap-4">
       <article class="text-center w-full p-4">
