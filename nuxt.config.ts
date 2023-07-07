@@ -22,14 +22,18 @@ export default defineNuxtConfig({
   nitro: {
     // Production
     storage: {
-      data: { driver: 'vercelKV' }
+      data: {
+        driver: 'vercelKV',
+        base: 'digitalocean:local:',
+        ttl: 10,
+      },
     },
     // Development
-    devStorage: {
-      data: {
-        driver: 'fs',
-        base: './.nuxt/db'
-      }
-    }
+    // devStorage: {
+    //   data: {
+    //     driver: 'fs',
+    //     base: './.nuxt/db'
+    //   }
+    // }
   },
 })
