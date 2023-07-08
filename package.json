@@ -22,6 +22,6 @@
     "@vercel/kv": "^0.2.2"
   },
   "overrides": {
-    "unstorage": "../unstorage-azophy"
+    "unstorage": "azophy/unstorage#feat\/vercelkv-ttl-build"
   }
 }
