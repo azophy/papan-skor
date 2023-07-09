@@ -22,7 +22,10 @@ export default defineNuxtConfig({
   nitro: {
     // Production
     storage: {
-      data: { driver: 'vercelKV' }
+      data: {
+        driver: 'vercelKV',
+        base: 'papanskor:',
+      },
     },
     // Development
     devStorage: {
